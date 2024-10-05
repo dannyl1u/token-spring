@@ -13,7 +13,7 @@ function App() {
         <header className="border-b">
           <div className="container mx-auto px-4">
             <div className="flex h-16 items-center justify-between">
-              <Link to="/" className="text-2xl font-bold">MicroVenture</Link>
+              <Link to="/" className="text-2xl font-bold">TokenSpring</Link>
               <nav className="space-x-4">
                 <Button variant="ghost" asChild>
                   <Link to="/">Home</Link>
