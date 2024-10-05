@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 
 function UserPortfolio() {
   const [portfolio, setPortfolio] = useState([]);
@@ -12,16 +13,18 @@ function UserPortfolio() {
 
   return (
     <div className="space-y-8">
-      <h1 className="text-4xl font-bold text-gray-800">My Portfolio</h1>
+      <h1 className="text-4xl font-bold">My Portfolio</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {portfolio.map((investment, index) => (
-          <div key={index} className="bg-white rounded-lg shadow-md overflow-hidden">
-            <div className="p-6">
-              <h2 className="text-2xl font-semibold text-gray-800 mb-2">{investment.startupName}</h2>
-              <p className="text-gray-600 mb-4">Token Symbol: {investment.tokenSymbol}</p>
-              <p className="text-3xl font-bold text-primary">{investment.balance} tokens</p>
-            </div>
-          </div>
+          <Card key={index}>
+            <CardHeader>
+              <CardTitle>{investment.startupName}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground mb-2">Token Symbol: {investment.tokenSymbol}</p>
+              <p className="text-2xl font-bold">{investment.balance} tokens</p>
+            </CardContent>
+          </Card>
         ))}
       </div>
     </div>
