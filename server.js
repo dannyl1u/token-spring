@@ -8,6 +8,9 @@ app.use(cors());
 app.use(express.json());
 
 // Add your routes here
+app.get('/', function (req, res) {
+  res.sendFile(__dirname + '/pages/index.html', {});
+});
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
