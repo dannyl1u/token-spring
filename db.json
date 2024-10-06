@@ -1,0 +1,94 @@
+{
+    "companies": [
+      {
+        "id": "defang",
+        "name": "Defang",
+        "totalShares": 1000000,
+        "availableShares": 750000,
+        "sharePrice": 15.50
+      },
+      {
+        "id": "trulioo",
+        "name": "Trulioo",
+        "totalShares": 500000,
+        "availableShares": 300000,
+        "sharePrice": 22.75
+      },
+      {
+        "id": "scalar",
+        "name": "Scalar",
+        "totalShares": 750000,
+        "availableShares": 500000,
+        "sharePrice": 18.20
+      },
+      {
+        "id": "transoft-solutions",
+        "name": "Transoft Solutions",
+        "totalShares": 300000,
+        "availableShares": 200000,
+        "sharePrice": 30.00
+      },
+      {
+        "id": "incogni",
+        "name": "Incogni",
+        "totalShares": 400000,
+        "availableShares": 350000,
+        "sharePrice": 12.80
+      },
+      {
+        "id": "red-bull",
+        "name": "Red Bull",
+        "totalShares": 2000000,
+        "availableShares": 1000000,
+        "sharePrice": 45.60
+      }
+    ],
+    "users": [
+      {
+        "id": "user1",
+        "name": "Alice Johnson",
+        "portfolio": {
+          "defang": { "shares": 100 },
+          "trulioo": { "shares": 50 },
+          "red-bull": { "shares": 75 }
+        }
+      },
+      {
+        "id": "user2",
+        "name": "Bob Smith",
+        "portfolio": {
+          "scalar": { "shares": 200 },
+          "incogni": { "shares": 150 }
+        }
+      }
+    ],
+    "transactions": [
+      {
+        "id": 1,
+        "type": "buy",
+        "userId": "user1",
+        "companyId": "defang",
+        "amount": 100,
+        "price": 15.00,
+        "timestamp": "2024-10-01T10:30:00Z"
+      },
+      {
+        "id": 2,
+        "type": "buy",
+        "userId": "user2",
+        "companyId": "scalar",
+        "amount": 200,
+        "price": 18.00,
+        "timestamp": "2024-10-02T14:45:00Z"
+      },
+      {
+        "id": 3,
+        "type": "sell",
+        "userId": "user1",
+        "companyId": "trulioo",
+        "amount": 25,
+        "price": 23.00,
+        "timestamp": "2024-10-03T09:15:00Z"
+      }
+    ]
+  }
