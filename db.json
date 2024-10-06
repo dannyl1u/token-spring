@@ -1,106 +1,311 @@
 {
-    "companies": [
-      {
-        "id": "defang",
-        "name": "Defang",
-        "totalShares": 1000000,
-        "availableShares": 750000,
-        "sharePrice": 15.50,
-        "description": "Defang is a cybersecurity company specializing in threat intelligence and network protection.",
-        "info": "Founded in 2018, Defang has quickly become a leader in AI-driven security solutions."
-      },
-      {
-        "id": "trulioo",
-        "name": "Trulioo",
-        "totalShares": 500000,
-        "availableShares": 300000,
-        "sharePrice": 22.75,
-        "description": "Trulioo is a global identity verification company providing real-time verification in over 195 countries.",
-        "info": "Established in 2011, Trulioo has offices in Vancouver, San Francisco, and Dublin."
-      },
-      {
-        "id": "scalar",
-        "name": "Scalar",
-        "totalShares": 750000,
-        "availableShares": 500000,
-        "sharePrice": 18.20,
-        "description": "Scalar is a cloud infrastructure company offering scalable solutions for businesses of all sizes.",
-        "info": "Scalar was founded in 2015 and has seen rapid growth in the cloud computing sector."
-      },
-      {
-        "id": "transoft-solutions",
-        "name": "Transoft Solutions",
-        "totalShares": 300000,
-        "availableShares": 200000,
-        "sharePrice": 30.00,
-        "description": "Transoft Solutions develops advanced software for the transportation engineering industry.",
-        "info": "With over 30 years in business, Transoft Solutions serves clients in over 150 countries."
-      },
-      {
-        "id": "incogni",
-        "name": "Incogni",
-        "totalShares": 400000,
-        "availableShares": 350000,
-        "sharePrice": 12.80,
-        "description": "Incogni is a privacy protection service that automates personal data removal from the internet.",
-        "info": "Launched in 2020, Incogni is a subsidiary of Surfshark, a well-known VPN provider."
-      },
-      {
-        "id": "red-bull",
-        "name": "Red Bull",
-        "totalShares": 2000000,
-        "availableShares": 1000000,
-        "sharePrice": 45.60,
-        "description": "Red Bull is an energy drink company known for its marketing and involvement in extreme sports and eSports.",
-        "info": "Founded in 1987 in Austria, Red Bull has sold over 100 billion cans worldwide."
-      }
-    ],
-    "users": [
-      {
-        "id": "user1",
-        "name": "Alice Johnson",
-        "portfolio": {
-          "defang": { "shares": 100 },
-          "trulioo": { "shares": 50 },
-          "red-bull": { "shares": 75 }
+  "companies": [
+    {
+      "id": "defang",
+      "name": "Defang",
+      "totalShares": 1000000,
+      "availableShares": 617144,
+      "sharePrice": 15.5,
+      "description": "Defang takes you from Docker Compose to production-ready AWS deployments in minutes.",
+      "info": "Founded in 2018, Defang has quickly become a leader in AI-driven security solutions.",
+      "currentFunding": 2058911.5
+    },
+    {
+      "id": "trulioo",
+      "name": "Trulioo",
+      "totalShares": 500000,
+      "availableShares": 171465,
+      "sharePrice": 22.75,
+      "description": "Trulioo is a global identity verification company providing real-time verification in over 195 countries.",
+      "info": "Established in 2011, Trulioo has offices in Vancouver, San Francisco, and Dublin.",
+      "currentFunding": 123123
+    },
+    {
+      "id": "scalar",
+      "name": "Scalar",
+      "totalShares": 750000,
+      "availableShares": 487011,
+      "sharePrice": 18.2,
+      "description": "Scalar is a cloud infrastructure company offering scalable solutions for businesses of all sizes.",
+      "info": "Scalar was founded in 2015 and has seen rapid growth in the cloud computing sector.",
+      "currentFunding": 12303.199999999999
+    },
+    {
+      "id": "transoft-solutions",
+      "name": "Transoft Solutions",
+      "totalShares": 300000,
+      "availableShares": 197600,
+      "sharePrice": 30,
+      "description": "Transoft Solutions develops advanced software for the transportation engineering industry.",
+      "info": "With over 30 years in business, Transoft Solutions serves clients in over 150 countries.",
+      "currentFunding": 2310
+    },
+    {
+      "id": "incogni",
+      "name": "Incogni",
+      "totalShares": 400000,
+      "availableShares": 349844,
+      "sharePrice": 12.8,
+      "description": "Incogni is a privacy protection service that automates personal data removal from the internet.",
+      "info": "Launched in 2020, Incogni is a subsidiary of Surfshark, a well-known VPN provider.",
+      "currentFunding": 1702.4
+    },
+    {
+      "id": "red-bull",
+      "name": "Red Bull",
+      "totalShares": 2000000,
+      "availableShares": 996698,
+      "sharePrice": 45.6,
+      "description": "Red Bull is an energy drink company known for its marketing and involvement in extreme sports and eSports.",
+      "info": "Founded in 1987 in Austria, Red Bull has sold over 100 billion cans worldwide.",
+      "currentFunding": 3192
+    }
+  ],
+  "users": [
+    {
+      "id": "user1",
+      "name": "Alice Johnson",
+      "portfolio": {
+        "defang": {
+          "shares": 132956
+        },
+        "trulioo": {
+          "shares": 128585
+        },
+        "red-bull": {
+          "shares": 3377
+        },
+        "transoft-solutions": {
+          "shares": 2400
+        },
+        "scalar": {
+          "shares": 12989
+        },
+        "incogni": {
+          "shares": 156
         }
-      },
-      {
-        "id": "user2",
-        "name": "Bob Smith",
-        "portfolio": {
-          "scalar": { "shares": 200 },
-          "incogni": { "shares": 150 }
+      }
+    },
+    {
+      "id": "user2",
+      "name": "Bob Smith",
+      "portfolio": {
+        "scalar": {
+          "shares": 200
+        },
+        "incogni": {
+          "shares": 150
         }
       }
-    ],
-    "transactions": [
-      {
-        "id": 1,
-        "type": "buy",
-        "userId": "user1",
-        "companyId": "defang",
-        "amount": 100,
-        "price": 15.00,
-        "timestamp": "2024-10-01T10:30:00Z"
-      },
-      {
-        "id": 2,
-        "type": "buy",
-        "userId": "user2",
-        "companyId": "scalar",
-        "amount": 200,
-        "price": 18.00,
-        "timestamp": "2024-10-02T14:45:00Z"
-      },
-      {
-        "id": 3,
-        "type": "sell",
-        "userId": "user1",
-        "companyId": "trulioo",
-        "amount": 25,
-        "price": 23.00,
-        "timestamp": "2024-10-03T09:15:00Z"
-      }
-    ]
-  }
+    }
+  ],
+  "transactions": [
+    {
+      "id": 1,
+      "type": "buy",
+      "userId": "user1",
+      "companyId": "defang",
+      "amount": 100,
+      "price": 15,
+      "timestamp": "2024-10-01T10:30:00Z"
+    },
+    {
+      "id": 2,
+      "type": "buy",
+      "userId": "user2",
+      "companyId": "scalar",
+      "amount": 200,
+      "price": 18,
+      "timestamp": "2024-10-02T14:45:00Z"
+    },
+    {
+      "id": 3,
+      "type": "sell",
+      "userId": "user1",
+      "companyId": "trulioo",
+      "amount": 25,
+      "price": 23,
+      "timestamp": "2024-10-03T09:15:00Z"
+    },
+    {
+      "id": 4,
+      "type": "buy",
+      "userId": "user1",
+      "companyId": "defang",
+      "amount": 23,
+      "price": 15.5,
+      "timestamp": "2024-10-06T18:29:35.897Z"
+    },
+    {
+      "id": 5,
+      "type": "buy",
+      "userId": "user1",
+      "companyId": "defang",
+      "amount": 8,
+      "price": 15.5,
+      "timestamp": "2024-10-06T18:33:13.339Z"
+    },
+    {
+      "id": 6,
+      "type": "buy",
+      "userId": "user1",
+      "companyId": "defang",
+      "amount": 332,
+      "price": 15.5,
+      "timestamp": "2024-10-06T18:34:12.356Z"
+    },
+    {
+      "id": 7,
+      "type": "buy",
+      "userId": "user1",
+      "companyId": "defang",
+      "amount": 21,
+      "price": 15.5,
+      "timestamp": "2024-10-06T18:34:12.363Z"
+    },
+    {
+      "id": 8,
+      "type": "buy",
+      "userId": "user1",
+      "companyId": "defang",
+      "amount": 123213,
+      "price": 15.5,
+      "timestamp": "2024-10-06T18:34:15.270Z"
+    },
+    {
+      "id": 9,
+      "type": "buy",
+      "userId": "user1",
+      "companyId": "defang",
+      "amount": 7949,
+      "price": 15.5,
+      "timestamp": "2024-10-06T18:34:15.277Z"
+    },
+    {
+      "id": 10,
+      "type": "buy",
+      "userId": "user1",
+      "companyId": "defang",
+      "amount": 1231,
+      "price": 15.5,
+      "timestamp": "2024-10-06T18:34:18.998Z"
+    },
+    {
+      "id": 11,
+      "type": "buy",
+      "userId": "user1",
+      "companyId": "defang",
+      "amount": 79,
+      "price": 15.5,
+      "timestamp": "2024-10-06T18:34:19.007Z"
+    },
+    {
+      "id": 12,
+      "type": "buy",
+      "userId": "user1",
+      "companyId": "trulioo",
+      "amount": 123123,
+      "price": 22.75,
+      "timestamp": "2024-10-06T18:34:24.452Z"
+    },
+    {
+      "id": 13,
+      "type": "buy",
+      "userId": "user1",
+      "companyId": "trulioo",
+      "amount": 5412,
+      "price": 22.75,
+      "timestamp": "2024-10-06T18:34:24.465Z"
+    },
+    {
+      "id": 14,
+      "type": "buy",
+      "userId": "user1",
+      "companyId": "transoft-solutions",
+      "amount": 2323,
+      "price": 30,
+      "timestamp": "2024-10-06T18:34:26.952Z"
+    },
+    {
+      "id": 15,
+      "type": "buy",
+      "userId": "user1",
+      "companyId": "transoft-solutions",
+      "amount": 77,
+      "price": 30,
+      "timestamp": "2024-10-06T18:34:26.960Z"
+    },
+    {
+      "id": 16,
+      "type": "buy",
+      "userId": "user1",
+      "companyId": "scalar",
+      "amount": 12313,
+      "price": 18.2,
+      "timestamp": "2024-10-06T18:34:28.762Z"
+    },
+    {
+      "id": 17,
+      "type": "buy",
+      "userId": "user1",
+      "companyId": "scalar",
+      "amount": 676,
+      "price": 18.2,
+      "timestamp": "2024-10-06T18:34:28.770Z"
+    },
+    {
+      "id": 18,
+      "type": "buy",
+      "userId": "user1",
+      "companyId": "incogni",
+      "amount": 23,
+      "price": 12.8,
+      "timestamp": "2024-10-06T18:34:33.260Z"
+    },
+    {
+      "id": 19,
+      "type": "buy",
+      "userId": "user1",
+      "companyId": "incogni",
+      "amount": 1,
+      "price": 12.8,
+      "timestamp": "2024-10-06T18:34:33.270Z"
+    },
+    {
+      "id": 20,
+      "type": "buy",
+      "userId": "user1",
+      "companyId": "incogni",
+      "amount": 123,
+      "price": 12.8,
+      "timestamp": "2024-10-06T18:34:34.783Z"
+    },
+    {
+      "id": 21,
+      "type": "buy",
+      "userId": "user1",
+      "companyId": "incogni",
+      "amount": 9,
+      "price": 12.8,
+      "timestamp": "2024-10-06T18:34:34.790Z"
+    },
+    {
+      "id": 22,
+      "type": "buy",
+      "userId": "user1",
+      "companyId": "red-bull",
+      "amount": 3232,
+      "price": 45.6,
+      "timestamp": "2024-10-06T18:34:36.517Z"
+    },
+    {
+      "id": 23,
+      "type": "buy",
+      "userId": "user1",
+      "companyId": "red-bull",
+      "amount": 70,
+      "price": 45.6,
+      "timestamp": "2024-10-06T18:34:36.528Z"
+    }
+  ]
+}

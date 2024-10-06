@@ -23,7 +23,7 @@ function App() {
                   <Link to="/portfolio">my portfolio</Link>
                 </Button>
                 <Button variant="ghost" asChild>
-                  <Link to="/company">my company</Link>
+                  <Link to="/company">my companies</Link>
                 </Button>
               </nav>
             </div>
