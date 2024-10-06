@@ -1,109 +1,143 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-const crypto = require('crypto');
+const fs = require('fs').promises;
+const path = require('path');
+const cors = require('cors');
 
 const app = express();
-app.use(bodyParser.json());
+const PORT = process.env.PORT || 3000;
+const DB_FILE = path.join(__dirname, 'db.json');
 
-// Simulated database
-let tokens = {
-  totalSupply: 1000000,
-  companyReserve: 1000000,
-  price: 1.00
-};
+app.use(cors());
+app.use(express.json());
 
-let users = {};
-let transactions = [];
+// Serve static files from the React build directory
+app.use(express.static(path.join(__dirname, 'pages', 'build')));
 
-// Helper function to generate transaction hash
-function generateTransactionHash() {
-  return crypto.randomBytes(32).toString('hex');
+// Helper function to read the database file
+async function readDb() {
+  const data = await fs.readFile(DB_FILE, 'utf8');
+  return JSON.parse(data);
 }
 
-// Endpoint 1: Get token information
-app.get('/api/token-info', (req, res) => {
-  res.json({
-    totalSupply: tokens.totalSupply,
-    availableSupply: tokens.companyReserve,
-    currentPrice: tokens.price
+// Helper function to write to the database file
+async function writeDb(data) {
+  await fs.writeFile(DB_FILE, JSON.stringify(data, null, 2));
+}
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../pages/build', 'index.html'), (err) => {
+      if (err) {
+        res.status(500).send(err);
+      }
+    });
   });
-});
 
-// Endpoint 2: Buy tokens
-app.post('/api/buy', (req, res) => {
-  const { userId, amount } = req.body;
-  
-  if (amount <= 0 || amount > tokens.companyReserve) {
-    return res.status(400).json({ error: 'Invalid amount' });
+// API routes
+app.get('/api/companies', async (req, res) => {
+  try {
+    const db = await readDb();
+    res.json(db.companies);
+  } catch (error) {
+    res.status(500).json({ error: 'Error reading database' });
   }
+});
 
-  const cost = amount * tokens.price;
-  
-  // In a real system, you'd handle actual payment here
-  
-  if (!users[userId]) {
-    users[userId] = { balance: 0 };
+app.get('/api/companies/:id', async (req, res) => {
+  try {
+    const db = await readDb();
+    const company = db.companies.find(c => c.id === req.params.id);
+    if (company) {
+      res.json(company);
+    } else {
+      res.status(404).json({ error: 'Company not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ error: 'Error reading database' });
   }
-  
-  users[userId].balance += amount;
-  tokens.companyReserve -= amount;
-
-  const transaction = {
-    hash: generateTransactionHash(),
-    type: 'buy',
-    userId,
-    amount,
-    price: tokens.price,
-    timestamp: new Date().toISOString()
-  };
-  transactions.push(transaction);
-
-  res.json({ success: true, transaction });
 });
 
-// Endpoint 3: Sell tokens
-app.post('/api/sell', (req, res) => {
-  const { userId, amount } = req.body;
-  
-  if (!users[userId] || users[userId].balance < amount) {
-    return res.status(400).json({ error: 'Insufficient balance' });
+app.get('/api/users', async (req, res) => {
+  try {
+    const db = await readDb();
+    res.json(db.users);
+  } catch (error) {
+    res.status(500).json({ error: 'Error reading database' });
   }
-
-  const saleValue = amount * tokens.price;
-  
-  users[userId].balance -= amount;
-  tokens.companyReserve += amount;
-
-  const transaction = {
-    hash: generateTransactionHash(),
-    type: 'sell',
-    userId,
-    amount,
-    price: tokens.price,
-    timestamp: new Date().toISOString()
-  };
-  transactions.push(transaction);
-
-  res.json({ success: true, transaction, saleValue });
 });
 
-// Endpoint 4: Get user balance
-app.get('/api/balance/:userId', (req, res) => {
-  const { userId } = req.params;
-  
-  if (!users[userId]) {
-    return res.status(404).json({ error: 'User not found' });
+app.get('/api/users/:id', async (req, res) => {
+  try {
+    const db = await readDb();
+    const user = db.users.find(u => u.id === req.params.id);
+    if (user) {
+      res.json(user);
+    } else {
+      res.status(404).json({ error: 'User not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ error: 'Error reading database' });
   }
-
-  res.json({ userId, balance: users[userId].balance });
 });
 
-// Endpoint 5: Get transaction history
-app.get('/api/transactions', (req, res) => {
-  res.json(transactions);
+app.post('/api/buy', async (req, res) => {
+  try {
+    const { userId, companyId, amount } = req.body;
+    const db = await readDb();
+
+    const company = db.companies.find(c => c.id === companyId);
+    const user = db.users.find(u => u.id === userId);
+
+    if (!company || !user) {
+      return res.status(404).json({ error: 'Company or user not found' });
+    }
+
+    if (amount <= 0 || amount > company.availableShares) {
+      return res.status(400).json({ error: 'Invalid amount' });
+    }
+
+    company.availableShares -= amount;
+
+    if (!user.portfolio[companyId]) {
+      user.portfolio[companyId] = { shares: 0 };
+    }
+    user.portfolio[companyId].shares += amount;
+
+    const transaction = {
+      id: db.transactions.length + 1,
+      type: 'buy',
+      userId,
+      companyId,
+      amount,
+      price: company.sharePrice,
+      timestamp: new Date().toISOString()
+    };
+    db.transactions.push(transaction);
+
+    await writeDb(db);
+
+    res.json({ success: true, transaction });
+  } catch (error) {
+    res.status(500).json({ error: 'Error processing purchase' });
+  }
 });
 
-const PORT = process.env.PORT || 9000;
+app.get('/api/transactions', async (req, res) => {
+  try {
+    const db = await readDb();
+    res.json(db.transactions);
+  } catch (error) {
+    res.status(500).json({ error: 'Error reading database' });
+  }
+});
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'pages', 'build', 'index.html'), (err) => {
+      if (err) {
+        res.status(500).send(err);
+      }
+    });
+  });
+
 app.listen(PORT, () => {
-  console.log(`Server is running on port: ${PORT}`);
+  console.log(`Server is running on port ${PORT}`);
 });
