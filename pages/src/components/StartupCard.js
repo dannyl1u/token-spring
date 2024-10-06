@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../ui/card";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
@@ -20,19 +19,8 @@ const StartupCard = ({ startup, onInvest }) => {
 
     setIsLoading(true);
     try {
-      const response = await axios.post('http://localhost:3000/buy', {
-        userId: 'user1', // Hardcoded for now, should be replaced with actual user ID
-        companyId: startup.id,
-        amount: Number(investmentAmount)
-      });
-
-      if (response.data.success) {
-        toast.success('Investment successful!');
-        onInvest(startup.id, Number(investmentAmount));
-        setInvestmentAmount('');
-      } else {
-        toast.error('Investment failed. Please try again.');
-      }
+      await onInvest(startup.id, Number(investmentAmount));
+      setInvestmentAmount('');
     } catch (error) {
       console.error('Error processing investment:', error);
       toast.error('An error occurred while processing your investment.');

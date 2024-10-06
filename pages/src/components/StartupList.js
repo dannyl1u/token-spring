@@ -15,7 +15,7 @@ function StartupList() {
           description: company.description,
           info: company.info,
           fundingGoal: company.totalShares * company.sharePrice,
-          currentFunding: (company.totalShares - company.availableShares) * company.sharePrice,
+          currentFunding: company.currentFunding,
           tokenSymbol: company.id.toUpperCase().slice(0, 3),
           sharePrice: company.sharePrice,
           availableShares: company.availableShares
@@ -44,7 +44,18 @@ function StartupList() {
       .then(response => {
         if (response.data.success) {
           toast.success(`Investment successful! You received ${shares} shares.`);
-          fetchStartups(); // Refresh the startups list
+          
+          // Update the startup data locally
+          setStartups(prevStartups => prevStartups.map(s => {
+            if (s.id === startupId) {
+              return {
+                ...s,
+                currentFunding: s.currentFunding + amount,
+                availableShares: s.availableShares - shares
+              };
+            }
+            return s;
+          }));
         } else {
           toast.error('Investment failed. Please try again.');
         }
