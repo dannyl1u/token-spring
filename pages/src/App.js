@@ -13,13 +13,16 @@ function App() {
         <header className="border-b">
           <div className="container mx-auto px-4">
             <div className="flex h-16 items-center justify-between">
-              <Link to="/" className="text-2xl font-bold">TokenSpring</Link>
+              <Link to="/" className="text-2xl font-bold">token.spring</Link>
               <nav className="space-x-4">
                 <Button variant="ghost" asChild>
-                  <Link to="/">Home</Link>
+                  <Link to="/">home</Link>
                 </Button>
                 <Button variant="ghost" asChild>
-                  <Link to="/portfolio">My Portfolio</Link>
+                  <Link to="/portfolio">my portfolio</Link>
+                </Button>
+                <Button variant="ghost" asChild>
+                  <Link to="/">my company</Link>
                 </Button>
               </nav>
             </div>

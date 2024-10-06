@@ -12,7 +12,8 @@ function StartupList() {
         const startupData = response.data.map(company => ({
           id: company.id,
           name: company.name,
-          description: `Innovative company with ${company.totalShares.toLocaleString()} total shares.`,
+          description: company.description,
+          info: company.info,
           fundingGoal: company.totalShares * company.sharePrice,
           currentFunding: (company.totalShares - company.availableShares) * company.sharePrice,
           tokenSymbol: company.id.toUpperCase().slice(0, 3), // Create a token symbol from company id
@@ -54,7 +55,7 @@ function StartupList() {
 
   return (
     <div className="space-y-8">
-      <h1 className="text-4xl font-bold">Invest in Startups</h1>
+      <h1 className="text-4xl font-bold">invest in early stage startups</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {startups.map(startup => (
           <StartupCard key={startup.id} startup={startup} onInvest={handleInvest} />

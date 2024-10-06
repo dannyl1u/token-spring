@@ -5,42 +5,54 @@
         "name": "Defang",
         "totalShares": 1000000,
         "availableShares": 750000,
-        "sharePrice": 15.50
+        "sharePrice": 15.50,
+        "description": "Defang is a cybersecurity company specializing in threat intelligence and network protection.",
+        "info": "Founded in 2018, Defang has quickly become a leader in AI-driven security solutions."
       },
       {
         "id": "trulioo",
         "name": "Trulioo",
         "totalShares": 500000,
         "availableShares": 300000,
-        "sharePrice": 22.75
+        "sharePrice": 22.75,
+        "description": "Trulioo is a global identity verification company providing real-time verification in over 195 countries.",
+        "info": "Established in 2011, Trulioo has offices in Vancouver, San Francisco, and Dublin."
       },
       {
         "id": "scalar",
         "name": "Scalar",
         "totalShares": 750000,
         "availableShares": 500000,
-        "sharePrice": 18.20
+        "sharePrice": 18.20,
+        "description": "Scalar is a cloud infrastructure company offering scalable solutions for businesses of all sizes.",
+        "info": "Scalar was founded in 2015 and has seen rapid growth in the cloud computing sector."
       },
       {
         "id": "transoft-solutions",
         "name": "Transoft Solutions",
         "totalShares": 300000,
         "availableShares": 200000,
-        "sharePrice": 30.00
+        "sharePrice": 30.00,
+        "description": "Transoft Solutions develops advanced software for the transportation engineering industry.",
+        "info": "With over 30 years in business, Transoft Solutions serves clients in over 150 countries."
       },
       {
         "id": "incogni",
         "name": "Incogni",
         "totalShares": 400000,
         "availableShares": 350000,
-        "sharePrice": 12.80
+        "sharePrice": 12.80,
+        "description": "Incogni is a privacy protection service that automates personal data removal from the internet.",
+        "info": "Launched in 2020, Incogni is a subsidiary of Surfshark, a well-known VPN provider."
       },
       {
         "id": "red-bull",
         "name": "Red Bull",
         "totalShares": 2000000,
         "availableShares": 1000000,
-        "sharePrice": 45.60
+        "sharePrice": 45.60,
+        "description": "Red Bull is an energy drink company known for its marketing and involvement in extreme sports and eSports.",
+        "info": "Founded in 1987 in Austria, Red Bull has sold over 100 billion cans worldwide."
       }
     ],
     "users": [
