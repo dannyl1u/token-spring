@@ -24,7 +24,7 @@ async function writeDb(data) {
   await fs.writeFile(DB_FILE, JSON.stringify(data, null, 2));
 }
 
-app.get('*', (req, res) => {
+app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../pages/build', 'index.html'), (err) => {
       if (err) {
         res.status(500).send(err);
@@ -33,7 +33,8 @@ app.get('*', (req, res) => {
   });
 
 // API routes
-app.get('/api/companies', async (req, res) => {
+app.get('/companies', async (req, res) => {
+    console.log("test")
   try {
     const db = await readDb();
     res.json(db.companies);
@@ -42,7 +43,7 @@ app.get('/api/companies', async (req, res) => {
   }
 });
 
-app.get('/api/companies/:id', async (req, res) => {
+app.get('/companies/:id', async (req, res) => {
   try {
     const db = await readDb();
     const company = db.companies.find(c => c.id === req.params.id);
@@ -56,7 +57,7 @@ app.get('/api/companies/:id', async (req, res) => {
   }
 });
 
-app.get('/api/users', async (req, res) => {
+app.get('/users', async (req, res) => {
   try {
     const db = await readDb();
     res.json(db.users);
@@ -65,7 +66,7 @@ app.get('/api/users', async (req, res) => {
   }
 });
 
-app.get('/api/users/:id', async (req, res) => {
+app.get('/users/:id', async (req, res) => {
   try {
     const db = await readDb();
     const user = db.users.find(u => u.id === req.params.id);
@@ -79,7 +80,7 @@ app.get('/api/users/:id', async (req, res) => {
   }
 });
 
-app.post('/api/buy', async (req, res) => {
+app.post('buy', async (req, res) => {
   try {
     const { userId, companyId, amount } = req.body;
     const db = await readDb();
@@ -121,7 +122,7 @@ app.post('/api/buy', async (req, res) => {
   }
 });
 
-app.get('/api/transactions', async (req, res) => {
+app.get('/transactions', async (req, res) => {
   try {
     const db = await readDb();
     res.json(db.transactions);
