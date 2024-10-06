@@ -5,6 +5,7 @@ import { Button } from "./ui/button"
 import StartupList from './components/StartupList';
 import StartupDetails from './components/StartupDetails';
 import UserPortfolio from './components/UserPortfolio';
+import UserCompany from './components/UserCompany';
 
 function App() {
   return (
@@ -22,7 +23,7 @@ function App() {
                   <Link to="/portfolio">my portfolio</Link>
                 </Button>
                 <Button variant="ghost" asChild>
-                  <Link to="/">my company</Link>
+                  <Link to="/company">my companies</Link>
                 </Button>
               </nav>
             </div>
@@ -34,6 +35,7 @@ function App() {
             <Route path="/" element={<StartupList />} />
             <Route path="/startup/:id" element={<StartupDetails />} />
             <Route path="/portfolio" element={<UserPortfolio />} />
+            <Route path="/company" element={<UserCompany />} />
           </Routes>
         </main>
       </div>

@@ -77,48 +77,50 @@ app.get('/users/:id', async (req, res) => {
   }
 });
 
-app.post('buy', async (req, res) => {
-  try {
-    const { userId, companyId, amount } = req.body;
-    const db = await readDb();
-
-    const company = db.companies.find(c => c.id === companyId);
-    const user = db.users.find(u => u.id === userId);
-
-    if (!company || !user) {
-      return res.status(404).json({ error: 'Company or user not found' });
+app.post('/buy', async (req, res) => {
+    try {
+      const { userId, companyId, amount } = req.body;
+      const db = await readDb();
+  
+      const company = db.companies.find(c => c.id === companyId);
+      const user = db.users.find(u => u.id === userId);
+  
+      if (!company || !user) {
+        return res.status(404).json({ error: 'Company or user not found' });
+      }
+  
+      if (amount <= 0 || amount > company.availableShares) {
+        return res.status(400).json({ error: 'Invalid amount' });
+      }
+  
+      company.availableShares -= amount;
+      company.currentFunding += amount * company.sharePrice; // Update current funding
+  
+      if (!user.portfolio[companyId]) {
+        user.portfolio[companyId] = { shares: 0 };
+      }
+      user.portfolio[companyId].shares += amount;
+  
+      const transaction = {
+        id: db.transactions.length + 1,
+        type: 'buy',
+        userId,
+        companyId,
+        amount,
+        price: company.sharePrice,
+        timestamp: new Date().toISOString()
+      };
+      db.transactions.push(transaction);
+  
+      await writeDb(db);
+  
+      res.json({ success: true, transaction });
+    } catch (error) {
+      console.error('Error processing purchase:', error);
+      res.status(500).json({ error: 'Error processing purchase' });
     }
-
-    if (amount <= 0 || amount > company.availableShares) {
-      return res.status(400).json({ error: 'Invalid amount' });
-    }
-
-    company.availableShares -= amount;
-
-    if (!user.portfolio[companyId]) {
-      user.portfolio[companyId] = { shares: 0 };
-    }
-    user.portfolio[companyId].shares += amount;
-
-    const transaction = {
-      id: db.transactions.length + 1,
-      type: 'buy',
-      userId,
-      companyId,
-      amount,
-      price: company.sharePrice,
-      timestamp: new Date().toISOString()
-    };
-    db.transactions.push(transaction);
-
-    await writeDb(db);
-
-    res.json({ success: true, transaction });
-  } catch (error) {
-    res.status(500).json({ error: 'Error processing purchase' });
-  }
-});
-
+  });
+  
 app.get('/transactions', async (req, res) => {
   try {
     const db = await readDb();

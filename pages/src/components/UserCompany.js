@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import PortfolioCard from './PortfolioCard';
 
-function UserPortfolio() {
+function UserCompany() {
   const [portfolio, setPortfolio] = useState({});
   const [companies, setCompanies] = useState({});
 
@@ -32,7 +32,7 @@ function UserPortfolio() {
 
   return (
     <div className="space-y-8">
-      <h1 className="text-4xl font-bold">my portfolio</h1>
+      <h1 className="text-4xl font-bold">my companies</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {portfolioItems.map((investment, index) => (
           <PortfolioCard key={index} investment={investment} companyName={companies[investment.companyId]?.name} />
@@ -42,4 +42,4 @@ function UserPortfolio() {
   );
 }
 
-export default UserPortfolio;
+export default UserCompany;

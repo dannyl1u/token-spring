@@ -1,17 +1,44 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../ui/card";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Progress } from "../ui/progress";
 import { ChevronDown, ChevronUp } from 'lucide-react';
+import { toast } from 'react-hot-toast';
 
 const StartupCard = ({ startup, onInvest }) => {
   const [investmentAmount, setInvestmentAmount] = useState('');
   const [isInfoExpanded, setIsInfoExpanded] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleInvest = () => {
-    onInvest(startup.id, Number(investmentAmount));
-    setInvestmentAmount('');
+  const handleInvest = async () => {
+    if (!investmentAmount || isNaN(Number(investmentAmount)) || Number(investmentAmount) <= 0) {
+      toast.error('Please enter a valid investment amount');
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      const response = await axios.post('http://localhost:3000/buy', {
+        userId: 'user1', // Hardcoded for now, should be replaced with actual user ID
+        companyId: startup.id,
+        amount: Number(investmentAmount)
+      });
+
+      if (response.data.success) {
+        toast.success('Investment successful!');
+        onInvest(startup.id, Number(investmentAmount));
+        setInvestmentAmount('');
+      } else {
+        toast.error('Investment failed. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error processing investment:', error);
+      toast.error('An error occurred while processing your investment.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const progressPercentage = (startup.currentFunding / startup.fundingGoal) * 100;
@@ -52,7 +79,9 @@ const StartupCard = ({ startup, onInvest }) => {
               onChange={(e) => setInvestmentAmount(e.target.value)}
               className="flex-grow"
             />
-            <Button onClick={handleInvest}>Invest</Button>
+            <Button onClick={handleInvest} disabled={isLoading}>
+              {isLoading ? 'Investing...' : 'Invest'}
+            </Button>
           </div>
         </div>
       </CardContent>
