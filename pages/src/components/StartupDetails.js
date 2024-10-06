@@ -19,7 +19,8 @@ function StartupDetails() {
         const startupData = {
           id: company.id,
           name: company.name,
-          description: `Innovative company with ${company.totalShares.toLocaleString()} total shares.`,
+          description: company.description,
+          info: company.info,
           fundingGoal: company.totalShares * company.sharePrice,
           currentFunding: (company.totalShares - company.availableShares) * company.sharePrice,
           tokenSymbol: company.id.toUpperCase().slice(0, 3),

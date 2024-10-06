@@ -3,9 +3,11 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Progress } from "../ui/progress";
+import { ChevronDown, ChevronUp } from 'lucide-react';
 
 const StartupCard = ({ startup, onInvest }) => {
   const [investmentAmount, setInvestmentAmount] = useState('');
+  const [isInfoExpanded, setIsInfoExpanded] = useState(false);
 
   const handleInvest = () => {
     onInvest(startup.id, Number(investmentAmount));
@@ -26,6 +28,21 @@ const StartupCard = ({ startup, onInvest }) => {
           <div className="flex justify-between text-sm">
             <span>Current: ${startup.currentFunding.toLocaleString()}</span>
             <span>Goal: ${startup.fundingGoal.toLocaleString()}</span>
+          </div>
+          <div>
+            <Button
+              variant="ghost"
+              className="w-full flex justify-between items-center"
+              onClick={() => setIsInfoExpanded(!isInfoExpanded)}
+            >
+              <span>Terms of Investment</span>
+              {isInfoExpanded ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
+            </Button>
+            {isInfoExpanded && (
+              <div className="mt-2 p-2 bg-muted rounded-md">
+                <p className="text-sm">{startup.info}</p>
+              </div>
+            )}
           </div>
           <div className="flex space-x-2">
             <Input
