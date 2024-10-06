@@ -1,13 +1,11 @@
 const express = require('express');
 const fs = require('fs').promises;
 const path = require('path');
-const cors = require('cors');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 const DB_FILE = path.join(__dirname, 'db.json');
 
-app.use(cors());
 app.use(express.json());
 
 // Serve static files from the React build directory
@@ -34,7 +32,6 @@ app.get('/', (req, res) => {
 
 // API routes
 app.get('/companies', async (req, res) => {
-    console.log("test")
   try {
     const db = await readDb();
     res.json(db.companies);
